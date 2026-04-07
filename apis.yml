@@ -1,6 +1,7 @@
 aid: ximilar
 name: Ximilar
-description: 'With Fashion Search, your customers can take real-life pictures '
+description: >-
+  With Fashion Search, your customers can take real-life pictures.
 type: Index
 position: Consumer
 access: 3rd-Party
@@ -15,7 +16,8 @@ specificationVersion: '0.19'
 apis:
   - aid: ximilar:ximilar
     name: Ximilar
-    description: 'With Fashion Search, your customers can take real-life pictures '
+    description: >-
+      With Fashion Search, your customers can take real-life pictures.
     humanURL: https://docs.ximilar.com/services/fashion_search/
     tags:
       - API
