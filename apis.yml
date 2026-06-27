@@ -17,7 +17,7 @@ common:
     url: https://github.com/ximilar-com
   - type: LinkedIn
     url: https://www.linkedin.com/company/ximilar
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.ximilar.com/llms.txt
 apis:
   - aid: ximilar:ximilar
