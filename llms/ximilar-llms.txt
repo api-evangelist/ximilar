@@ -1,0 +1,83 @@
+# Ximilar API Documentation
+
+> Ximilar API offers powerful AI Image Recognition, Image Tagging, Visual Search
+> services, Collectibles Recognition and more. This is the REST API documentation
+> of ximilar.com services for developers.
+
+To get started, sign up at https://app.ximilar.com/login, get your API token from
+settings and make sure an appropriate pricing plan is activated
+(https://ximilar.com/pricing). The complete documentation in a single file is
+available at https://docs.ximilar.com/llms-full.txt.
+
+## Guides
+
+- [Introduction](https://docs.ximilar.com/index.md): Learn everything about the Ximilar API and how to integrate it into your app, infrastructure, or website.
+- [Quickstart](https://docs.ximilar.com/quickstart.md): This guide will get you all set up and ready to use the Ximilar API. We’ll cover how to get started with API and how to make your first API request.
+- [SDKs](https://docs.ximilar.com/sdks.md): Protocol offers fine-tuned JavaScript, Ruby, PHP, Python, and Go libraries to make your life easier and give you the best experience when consuming the API.
+- [Services & Taxonomies](https://docs.ximilar.com/services.md): A list with all of our services.
+- [MCP Server & Client](https://docs.ximilar.com/mcp.md): In this guide, how to use the Ximilar MCP Server to use functionality of the Ximilar Computer Vision Platform within your favorite LLM client.
+
+## Computer Vision Platform
+
+- [Overview & Basics](https://docs.ximilar.com/platform/overview.md): In this guide, we will look at how to access Ximilar's Computer Vision Platform and manage your account in Ximilar App via REST API.
+- [User Management](https://docs.ximilar.com/platform/user.md): In this guide, we will look at how to access Ximilar's Computer Vision Platform and manage your account in Ximilar App via REST API.
+- [Image Classification](https://docs.ximilar.com/platform/classification.md): In this guide, we will look at how to use Ximilar Image Classification & Regression API for training image classification models and recognizing images.
+- [Vision Language Models](https://docs.ximilar.com/platform/vlm.md): In this guide, we will look at how to use Ximilar Custom VLM API for training custom vision language models for structured image analysis and generation tasks.
+- [Object Detection](https://docs.ximilar.com/platform/detection.md): In this guide, we will look at how to use Ximilar Object Detection API for training object detection models powered by AI.
+- [Custom Similarity](https://docs.ximilar.com/platform/similarity.md): In this guide, we will look at how to use Ximilar Custom Similarity API for training models and finding similar images.
+- [Flows](https://docs.ximilar.com/platform/flows.md): In this guide, we will look at how to use flows for connecting multiple AI models into one REST API endpoint.
+
+## Collectibles AI
+
+- [Collectibles Recognition](https://docs.ximilar.com/collectibles/recognition.md): In this guide, we will look at how to identify trading card games, sports cards, and comic books, and get their prices via API.
+- [Card Grading](https://docs.ximilar.com/collectibles/card-grading.md): This page describes the Card Grading service API. This service uses AI and machine learning to assess and grade images of collectible cards. All access is via the asynchronous request API.
+- [Text Search](https://docs.ximilar.com/collectibles/text-search.md): In this guide, we will look at how to search collectibles catalog using text search queries via API.
+
+## AI Image Tagging
+
+- [Fashion Tagging](https://docs.ximilar.com/tagging/fashion.md): In this guide, we will look at how to tag fashion apparel with categories, sub-categories and various attributes via API.
+- [Home Decor Tagging](https://docs.ximilar.com/tagging/homedecor.md): The Home Decor Tagging service provides categories, sub-categories, and rich tagging for home decor and furniture product images.
+- [Photo Tagging](https://docs.ximilar.com/tagging/generic.md): This page describes API for photo tagging service for stock and real-life photos.
+- [Person Detection](https://docs.ximilar.com/tagging/person.md): In this guide, we will look at how to use Person Detection API for detecting faces and people in images.
+- [Dominant Colors](https://docs.ximilar.com/tagging/colors.md): In this guide, we will look at how to extract dominant colors from images via API.
+
+## Visual Search
+
+- [Overview & Basics](https://docs.ximilar.com/visual-search/overview.md): Learn how to use Ximilar Visual Search API to search, compare, and recommend similar images using AI.
+- [Text Search](https://docs.ximilar.com/visual-search/text-search.md): Learn how to use Ximilar Visual Search API to find images using text queries.
+- [Image Matching](https://docs.ximilar.com/visual-search/image-matching.md): Learn how to use Ximilar Visual Search API to identify duplicate or near-duplicate images.
+- [Fashion Search](https://docs.ximilar.com/visual-search/fashion.md): Learn how to use Ximilar Fashion Search API to find visually similar fashion products and perform multimodal & multilingual text-to-image search.
+- [Home Decor Search](https://docs.ximilar.com/visual-search/home-decor.md): Learn how to use Ximilar Home Decor Search API to find visually similar home decor products and perform multimodal & multilingual text to image search.
+
+## Text Processing
+
+- [Product Description Generation](https://docs.ximilar.com/text/product-description.md): This guide explains how to automatically generate product descriptions based on product images and textual inputs, including preferred keywords.
+- [OCR](https://docs.ximilar.com/text/ocr.md): Learn how to use OCR (Optical Character Recognition) service and combination of text retrieval by OCR and ChatGPT processing.
+
+## Image Tools
+
+- [Image Upscaler](https://docs.ximilar.com/image-tools/upscaler.md): In this guide, we’ll look at how to increase the resolution of your images using Image Upscaling (Super-Resolution models) via the API.
+- [Background Removal](https://docs.ximilar.com/image-tools/remove-background.md): In this guide, we’ll look at how to remove background from images in bulk via API.
+
+## Taxonomies
+
+- [Fashion Taxonomy](https://docs.ximilar.com/taxonomy/fashion.md): Taxonomy of our Fashion Tagging AI Service.
+- [Home Decor Taxonomy](https://docs.ximilar.com/taxonomy/homedecor.md): Taxonomy of our Home Decor & Furniture AI Service.
+- [Collectibles Taxonomy](https://docs.ximilar.com/taxonomy/collectibles.md): Taxonomy of our Collectibles Recognition AI Service.
+
+## Asynchronous API
+
+- [Asynchronous Requests](https://docs.ximilar.com/async-api.md): In this guide, we will look at how to use asynchronous requests for processing large numbers of images via API.
+
+## Code Samples
+
+- [Python](https://docs.ximilar.com/code-samples/python.md): Python code examples for using the Ximilar API.
+
+## Optional
+
+- [Ximilar App](https://app.ximilar.com): sign up, manage your account and get your API token
+- [Pricing](https://ximilar.com/pricing): pricing plans and API credits
+- [Blog & Articles](https://ximilar.com/blog): guides and articles about Ximilar services
+- [Status Page](https://status.ximilar.com): API service status
+- [Video Tutorials](https://www.youtube.com/@ximilar): video guides on YouTube
+- Support: tech@ximilar.com
