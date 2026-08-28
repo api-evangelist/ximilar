@@ -4,136 +4,1855 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Ximilar
 providerId: ximilar
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags: []
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-08-28'
+generated: '2026-08-28'
+method: searched
+source: https://www.ximilar.com/pricing/
+docs: https://www.ximilar.com/pricing/
+plan_count: 16
+tags:
+- Pricing
+- Plans
+- Credits
+- Computer Vision
+description: 'Real, provider-published plans and pricing for Ximilar, read from https://www.ximilar.com/pricing/
+  (HTTP 200) on 2026-08-28. This file REPLACES a 2026-05-04 scaffold whose tiers and prices were placeholder
+  values. Ximilar sells a credit ladder, not a request ladder: every plan buys a monthly API credit allowance
+  and each operation consumes a published number of credits (see billing_model). Monthly EUR prices are
+  the headline; USD equivalents are published alongside. A yearly billing toggle exists on the page but
+  no yearly prices were rendered in the fetched HTML, so none are recorded here.'
+billing_model:
+  unit: API credit
+  description: Pricing is based on API method calls, with each request consuming a number of credits that
+    depends on the operation. Only calls that send or upload an image for AI analysis consume credits;
+    all other methods are free of charge.
+  top_ups: Credit packs can be purchased on top of the monthly allowance on Business and Professional
+    plans.
+  tracking: https://app.ximilar.com/dashboard
+  source: https://docs.ximilar.com/quickstart
+  sample_credit_values:
+  - service: Fashion Tagging
+    operation: Region identification
+    credits: 1
+  - service: Fashion Tagging
+    operation: Tag all fashion items
+    credits: 60
+  - service: AI Recognition of Collectibles
+    operation: Identify a TCG card
+    credits: 10
+  - service: AI Card Grading
+    operation: Grade a card
+    credits: 100
+  - service: AI Product Description
+    operation: Description Generation
+    credits: 100
+  - service: OCR
+    operation: Read text via OCR
+    credits: 5
+  - service: OCR + ChatGPT
+    operation: Read text via OCR and analyze with GPT
+    credits: 15
+  - service: Background Removal
+    operation: Remove background (fast)
+    credits: 10
+  - service: Background Removal
+    operation: Remove background (precise)
+    credits: 50
+  - service: Upscaler Classic
+    operation: Upscale Image XS
+    credits: 20
+  - service: Upscaler GAN
+    operation: Upscale Image UNLIMITED
+    credits: 1536
+  - service: Visual Search
+    operation: Visual search (internal query)
+    credits: 1
+  - service: Visual Search
+    operation: Visual search (external query)
+    credits: 10
+  - service: Visual Search
+    operation: Sync your database to Ximilar
+    credits: 3000
+  - service: Vision Language Model
+    operation: Train VLM LoRA 4B Small
+    credits: 30000
+  note: Sample only — the pricing page publishes a full credit-value table for every operation.
 plans:
-  - id: ximilar-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Ximilar API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Ximilar
-  - id: ximilar-pro
-    name: Professional
-    type: paid
-    description: Production tier for Ximilar. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Ximilar
-  - id: ximilar-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Ximilar. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Ximilar
+- id: ximilar-free
+  name: Free
+  type: freemium
+  description: Free forever tier for individuals or teams just getting started with no-code computer vision.
+    1,000 API credits per month, no credit card required. Limited e-mail support.
+  price: '0'
+  currency: EUR
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 1000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection
+    name: collection_size
+    type: quota
+    metric: records
+    limit: 1000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  elements:
+  - name: Limited e-mail support
+  - name: No credit card required
+  - name: Dominant Colors
+  - name: AI Card Grading
+  - name: Photo Tagging
+  - name: Photo Similarity
+  - name: Reverse Image Search
+  - name: Product Similarity
+  - name: Background Removal
+  - name: OCR
+  - name: Image Classification & Regression
+  - name: Object Detection
+  - name: Flows
+  - name: Person Detection & Recognition
+  - name: Vision Language Model
+- id: ximilar-business-100k
+  name: Business 100K
+  type: paid
+  description: Smart AI tools for businesses that want to automate image processing. 100,000 API credits
+    per month. Standard support and one consultation with an ML expert.
+  price: '59'
+  currency: EUR
+  priceUSD: '64'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 100000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '59'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection
+    name: collection_size
+    type: quota
+    metric: records
+    limit: 100000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 5
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Standard support & one consultation with ML expert
+  - name: Fashion Tagging
+  - name: Fashion Search & Recommendation
+  - name: Home Decor Tagging
+  - name: Home Decor Search
+  - name: AI Product Description
+  - name: AI Recognition of Collectibles
+  - name: Visual Search of Collectibles
+  - name: Collectibles Text Search
+  - name: Upscaler Classic
+  - name: Upscaler GAN
+  - name: OCR + ChatGPT
+  - name: 'Annotate: Image Annotation Tool'
+  - name: Parallel Processing
+  - name: Invoice payment
+- id: ximilar-business-300k
+  name: Business 300K
+  type: paid
+  description: Smart AI tools for businesses that want to automate image processing. 300,000 API credits
+    per month. Standard support and one consultation with an ML expert.
+  price: '175'
+  currency: EUR
+  priceUSD: '192'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 300000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '175'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 5
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection
+    name: collection_size
+    type: quota
+    metric: records
+    limit: 300000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 15
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 6
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Standard support & one consultation with ML expert
+  - name: Fashion Tagging
+  - name: Fashion Search & Recommendation
+  - name: Home Decor Tagging
+  - name: Home Decor Search
+  - name: AI Product Description
+  - name: AI Recognition of Collectibles
+  - name: Visual Search of Collectibles
+  - name: Collectibles Text Search
+  - name: Upscaler Classic
+  - name: Upscaler GAN
+  - name: OCR + ChatGPT
+  - name: 'Annotate: Image Annotation Tool'
+  - name: Parallel Processing
+  - name: Invoice payment
+- id: ximilar-business-500k
+  name: Business 500K
+  type: paid
+  description: Smart AI tools for businesses that want to automate image processing. 500,000 API credits
+    per month. Standard support and one consultation with an ML expert.
+  price: '285'
+  currency: EUR
+  priceUSD: '314'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 500000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '285'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 8
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection
+    name: collection_size
+    type: quota
+    metric: records
+    limit: 500000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 20
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 12
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Standard support & one consultation with ML expert
+  - name: Fashion Tagging
+  - name: Fashion Search & Recommendation
+  - name: Home Decor Tagging
+  - name: Home Decor Search
+  - name: AI Product Description
+  - name: AI Recognition of Collectibles
+  - name: Visual Search of Collectibles
+  - name: Collectibles Text Search
+  - name: Upscaler Classic
+  - name: Upscaler GAN
+  - name: OCR + ChatGPT
+  - name: 'Annotate: Image Annotation Tool'
+  - name: Parallel Processing
+  - name: Invoice payment
+- id: ximilar-professional-1m
+  name: Professional 1M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 1,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '499'
+  currency: EUR
+  priceUSD: '549'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 1000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '499'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 25
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 20
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-professional-2m
+  name: Professional 2M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 2,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '930'
+  currency: EUR
+  priceUSD: '1019'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 2000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '930'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 30
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 25
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-professional-3m
+  name: Professional 3M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 3,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '1299'
+  currency: EUR
+  priceUSD: '1425'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 3000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '1299'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 35
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 30
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-professional-4m
+  name: Professional 4M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 4,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '1635'
+  currency: EUR
+  priceUSD: '1799'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 4000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '1635'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 40
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 35
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-professional-5m
+  name: Professional 5M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 5,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '1945'
+  currency: EUR
+  priceUSD: '2139'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 5000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '1945'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 45
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 40
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-professional-6m
+  name: Professional 6M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 6,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '2229'
+  currency: EUR
+  priceUSD: '2449'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 6000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '2229'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-professional-7m
+  name: Professional 7M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 7,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '2485'
+  currency: EUR
+  priceUSD: '2732'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 7000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '2485'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 55
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 55
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-professional-10m
+  name: Professional 10M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 10,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '3125'
+  currency: EUR
+  priceUSD: '3435'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 10000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '3125'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 80
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 70
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-professional-20m
+  name: Professional 20M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 20,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '5359'
+  currency: EUR
+  priceUSD: '5859'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 20000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '5359'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 25
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 20
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-professional-30m
+  name: Professional 30M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 30,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '7619'
+  currency: EUR
+  priceUSD: '7989'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 30000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '7619'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 25
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 20
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-professional-40m
+  name: Professional 40M
+  type: paid
+  description: Advanced features for companies processing large volumes of data. 40,000,000 API credits
+    per month. Priority support and regular consultations with an ML expert.
+  price: '9559'
+  currency: EUR
+  priceUSD: '9789'
+  billingPeriod: month
+  entries:
+  - label: API Credits
+    description: Monthly API credit allowance across all included services
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: 40000000
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '9559'
+    userMultiplied: false
+  - label: Collections
+    description: Number of visual search collections
+    name: collections
+    type: quota
+    metric: collections
+    limit: 10
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Collection Size
+    description: Maximum records per visual search collection (unlimited)
+    name: collection_size
+    type: quota
+    metric: records
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Recognition Tasks
+    description: Number of image recognition tasks
+    name: recognition_tasks
+    type: quota
+    metric: tasks
+    limit: 25
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Detection Labels
+    description: Number of object detection labels
+    name: detection_labels
+    type: quota
+    metric: labels
+    limit: 50
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Flows
+    description: Number of Flows (combined AI models)
+    name: flows
+    type: quota
+    metric: flows
+    limit: 20
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Similarity Tasks
+    description: Number of custom similarity tasks
+    name: similarity_tasks
+    type: quota
+    metric: tasks
+    limit: 3
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  - label: Credit Packs
+    description: Additional credit packs can be purchased on top of the monthly allowance
+    name: credit_packs
+    type: metered
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: see pricing page
+    userMultiplied: false
+  elements:
+  - name: Priority support & regular consultations with ML expert
+  - name: Everything in Business
+  - name: Custom Similarity
+  - name: Custom Profile
+  - name: Taxonomy Mapping
+  - name: Team Collaboration
+  - name: Machine Learning Loop
+  - name: Unlimited Collection Size
+  - name: Invoice payment
+- id: ximilar-custom
+  name: Custom / Contact us
+  type: enterprise
+  description: For volumes or solution mixes outside the published ladder Ximilar directs buyers to contact
+    them for a custom solution. No price is published for this tier.
+  price: custom
+  currency: EUR
+  billingPeriod: negotiated
+  entries:
+  - label: API Credits
+    description: Negotiated credit volume
+    name: api_credits
+    type: quota
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    domains: []
+    unit: 1
+    price: custom
+    userMultiplied: false
+  elements:
+  - name: Custom solution
+  - name: Contact sales
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

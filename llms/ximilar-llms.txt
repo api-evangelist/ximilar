@@ -24,6 +24,7 @@ available at https://docs.ximilar.com/llms-full.txt.
 - [Image Classification](https://docs.ximilar.com/platform/classification.md): In this guide, we will look at how to use Ximilar Image Classification & Regression API for training image classification models and recognizing images.
 - [Vision Language Models](https://docs.ximilar.com/platform/vlm.md): In this guide, we will look at how to use Ximilar Custom VLM API for training custom vision language models for structured image analysis and generation tasks.
 - [Object Detection](https://docs.ximilar.com/platform/detection.md): In this guide, we will look at how to use Ximilar Object Detection API for training object detection models powered by AI.
+- [Instance Segmentation](https://docs.ximilar.com/platform/segmentation.md): In this guide, we will look at how to use Ximilar Instance Segmentation API for training custom segmentation models powered by AI.
 - [Custom Similarity](https://docs.ximilar.com/platform/similarity.md): In this guide, we will look at how to use Ximilar Custom Similarity API for training models and finding similar images.
 - [Flows](https://docs.ximilar.com/platform/flows.md): In this guide, we will look at how to use flows for connecting multiple AI models into one REST API endpoint.
 

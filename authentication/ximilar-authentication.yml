@@ -1,0 +1,55 @@
+generated: '2026-08-28'
+method: searched
+source: https://docs.ximilar.com/quickstart
+docs: https://docs.ximilar.com/quickstart
+provider: Ximilar
+providerId: ximilar
+description: >-
+  Ximilar uses a single long-lived API token issued per account in the Ximilar App. There
+  is no OAuth 2.0, no OpenID Connect, no mTLS and no scope system; every request on every
+  service carries the same token. Derived from the provider's own Quickstart page, not
+  from a specification — Ximilar publishes no OpenAPI, so there are no securitySchemes to
+  aggregate.
+summary:
+  types: [apiKey]
+  api_key_in: [header]
+  oauth2_flows: []
+  openid_connect: false
+  mutual_tls: false
+  scopes: none
+schemes:
+  - name: ximilarToken
+    type: apiKey
+    in: header
+    parameter_name: Authorization
+    value_format: 'Token <API_TOKEN>'
+    applies_to: all api.ximilar.com services
+    sources: [https://docs.ximilar.com/quickstart]
+    note: >-
+      "All requests to the Ximilar API must include your API token in the request headers.
+      This applies to all HTTP methods: GET, POST, PUT, and DELETE." Content-Type must be
+      application/json.
+token_management:
+  issue_url: https://app.ximilar.com/my-plan/settings
+  signup_url: https://app.ximilar.com/register
+  rotation_documented: false
+  expiry_documented: false
+  scope_model: none — one account token grants every service the active plan includes
+additional_request_identity:
+  - header: collection-id
+    applies_to: Visual Search / similarity services
+    description: >-
+      Search and similarity operations address a specific image collection via a
+      collection-id request header rather than a path parameter. Collections must be
+      created by Ximilar administrators before use.
+    source: https://docs.ximilar.com/visual-search/overview
+  - field: workspace
+    applies_to: Computer Vision Platform, VLM, async requests
+    description: Workspace UUID; defaults to the account's default workspace when omitted.
+mcp_auth:
+  type: api-key
+  env: XIMILAR_API_KEY
+  note: The local MCP server takes the same account token via an environment variable.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

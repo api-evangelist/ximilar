@@ -1,0 +1,82 @@
+generated: '2026-08-28'
+method: probed
+source: live GET of /.well-known/* on every Ximilar host on 2026-08-28
+provider: Ximilar
+providerId: ximilar
+hit_count: 0
+description: >-
+  Ximilar serves no /.well-known discovery documents on any of its hosts. The API host
+  (api.ximilar.com, nginx) and the marketing host (www.ximilar.com, WordPress) return a
+  genuine 404 for every probed path. The docs host (docs.ximilar.com) and the app host
+  (app.ximilar.com) are single-page applications that answer HTTP 200 with an identical
+  HTML shell for EVERY path under /.well-known/ — including a control path that cannot
+  exist — so none of those 200s is a document. Nothing was saved and NO WellKnown or
+  SecurityTxt pointer is emitted; a 200 HTML shell is a miss, not a hit.
+hosts:
+  - host: https://api.ximilar.com
+    server: nginx
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+    soft_404_control:
+      path: /.well-known/this-path-does-not-exist-control
+      status: 404
+      bytes: 548
+      verdict: honest-404
+  - host: https://www.ximilar.com
+    server: WordPress
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+    soft_404_control:
+      path: /.well-known/this-path-does-not-exist-control
+      status: 404
+      bytes: 207318
+      verdict: honest-404
+  - host: https://docs.ximilar.com
+    server: SPA (client-rendered docs)
+    documents:
+      - {path: /.well-known/security.txt, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/openid-configuration, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/oauth-authorization-server, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/oauth-protected-resource, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/api-catalog, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/ai-plugin.json, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/agent-card.json, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/agent.json, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+    soft_404_control:
+      path: /.well-known/this-path-does-not-exist-control
+      status: 200
+      bytes: 96532
+      verdict: catch-all — byte-identical to every probed path, so every 200 above is the docs shell
+  - host: https://app.ximilar.com
+    server: SPA (Ximilar App)
+    documents:
+      - {path: /.well-known/security.txt, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/openid-configuration, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/oauth-authorization-server, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/oauth-protected-resource, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/api-catalog, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/ai-plugin.json, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/agent-card.json, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+      - {path: /.well-known/agent.json, status: 200, content_type: text/html, file: null, verdict: spa-shell-not-a-document}
+    soft_404_control:
+      path: /.well-known/this-path-does-not-exist-control
+      status: 200
+      bytes: 1280
+      verdict: catch-all — byte-identical to every probed path
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

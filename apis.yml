@@ -1,7 +1,14 @@
 aid: ximilar
 name: Ximilar
-description: >-
-  With Fashion Search, your customers can take real-life pictures.
+description: Ximilar is a Czech visual-AI company that sells computer vision as a REST API and a no-code
+  platform. Its api.ximilar.com surface covers image recognition and tagging (fashion, home decor, stock
+  photo), collectibles AI (trading-card, sports-card and comic identification, AI card grading and TCG
+  price search), visual search and similarity (reverse image search, product matching, multimodal text-to-image),
+  OCR, background removal and image upscaling, plus a Computer Vision Platform for training custom classification,
+  regression, detection and vision-language models and chaining them with Flows. Everything is billed
+  in API credits against a monthly plan allowance, authenticated with a single account token, and callable
+  synchronously or through an asynchronous request API with webhook callbacks. Ximilar also publishes
+  a first-party Python SDK and a local MCP server exposing eleven of its services to LLM clients.
 type: Index
 accessModel:
   pricing: freemium
@@ -18,33 +25,136 @@ accessModel:
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ximilar.png
-tags: []
+tags:
+- Computer Vision
+- Image Recognition
+- Visual Search
+- Image Tagging
+- Machine Learning
+- Artificial Intelligence
+- OCR
+- Collectibles
+- Fashion
+- E-Commerce
+- MCP
+- Image Processing
 created: '2025-03-01'
-modified: '2026-03-16'
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/ximilar/refs/heads/main/apis.yml
+modified: '2026-08-28'
+url: https://raw.githubusercontent.com/api-evangelist/ximilar/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 common:
-  - type: DomainSecurity
-    url: security/ximilar-domain-security.yml
-  - url: https://www.ximilar.com/blog/feed/
-    type: Blog
-  - type: GitHubOrganization
-    url: https://github.com/ximilar-com
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/ximilar
-  - type: LlmsText
-    url: https://docs.ximilar.com/llms.txt
+- type: Website
+  url: https://www.ximilar.com/
+- type: DeveloperPortal
+  url: https://www.ximilar.com/developers/
+- type: Documentation
+  url: https://docs.ximilar.com/
+- type: APIReference
+  url: https://docs.ximilar.com/services
+- type: GettingStarted
+  url: https://docs.ximilar.com/quickstart
+- type: Support
+  url: https://www.ximilar.com/faq/
+- type: Contact
+  url: https://www.ximilar.com/contact-us/
+- type: Blog
+  url: https://www.ximilar.com/blog/
+- type: BlogRSS
+  url: https://www.ximilar.com/blog/feed/
+- type: GitHubOrganization
+  url: https://github.com/ximilar-com
+- type: SourceCode
+  url: https://gitlab.com/ximilar-public/ximilar-client
+- type: LinkedIn
+  url: https://www.linkedin.com/company/ximilar
+- type: Pricing
+  url: https://www.ximilar.com/pricing/
+- type: SignUp
+  url: https://app.ximilar.com/register
+- type: Login
+  url: https://app.ximilar.com/login
+- type: TermsOfService
+  url: https://www.ximilar.com/terms-of-use-privacy/
+- type: PrivacyPolicy
+  url: https://www.ximilar.com/terms-of-use-privacy/
+- type: Compliance
+  url: https://www.ximilar.com/how-we-handle-data/
+- type: StatusPage
+  url: https://status.ximilar.com/
+- type: LLMsTxt
+  url: https://docs.ximilar.com/llms.txt
+- type: Plans
+  url: plans/ximilar-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/ximilar-rate-limits.yml
+- type: FinOps
+  url: finops/ximilar-finops.yml
+- type: Packages
+  url: packages/ximilar-packages.yml
+- type: SDKs
+  url: packages/ximilar-packages.yml
+- type: MCPServer
+  url: mcp/ximilar-mcp.yml
+- type: Authentication
+  url: authentication/ximilar-authentication.yml
+- type: Conventions
+  url: conventions/ximilar-conventions.yml
+- type: Idempotency
+  url: conventions/ximilar-conventions.yml
+- type: ErrorCatalog
+  url: errors/ximilar-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/ximilar-lifecycle.yml
+- type: Conformance
+  url: conformance/ximilar-conformance.yml
+- type: Webhooks
+  url: asyncapi/ximilar-webhooks.yml
+- type: Sandbox
+  url: sandbox/ximilar-sandbox.yml
+- type: DomainSecurity
+  url: security/ximilar-domain-security.yml
 apis:
-  - aid: ximilar:ximilar
-    name: Ximilar
-    description: >-
-      With Fashion Search, your customers can take real-life pictures.
-    humanURL: https://docs.ximilar.com/services/fashion_search/
-    tags: []
-    properties:
-      - type: Documentation
-        url: https://docs.ximilar.com/services/fashion_search/
+- aid: ximilar:ximilar
+  name: Ximilar API
+  description: 'The Ximilar REST API at https://api.ximilar.com. One account token in an ''Authorization:
+    Token'' header unlocks every service the active plan includes: fashion, home-decor and photo tagging,
+    collectibles recognition and AI card grading, visual and text-to-image search over your own collections,
+    OCR, background removal, image upscaling, product-description generation, and the Computer Vision
+    Platform for training custom classification, regression, detection, similarity and vision-language
+    models. Requests and responses are JSON, images arrive as _url or _base64 records, up to ten records
+    per call, and long jobs can be run through the asynchronous request API with a webhook callback.'
+  humanURL: https://docs.ximilar.com/
+  baseURL: https://api.ximilar.com
+  tags:
+  - Computer Vision
+  - Image Recognition
+  - Visual Search
+  - Image Tagging
+  - OCR
+  - Collectibles
+  - Machine Learning
+  properties:
+  - type: Documentation
+    url: https://docs.ximilar.com/
+  - type: APIReference
+    url: https://docs.ximilar.com/services
+  - type: GettingStarted
+    url: https://docs.ximilar.com/quickstart
+  - type: Authentication
+    url: https://docs.ximilar.com/quickstart
+  - type: MCPServer
+    url: https://docs.ximilar.com/mcp
+  - type: AsynchronousRequests
+    url: https://docs.ximilar.com/async-api
+  - type: CodeSamples
+    url: https://docs.ximilar.com/code-samples/python
+  - type: Demo
+    url: https://demo.ximilar.com/
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-28'
+  status: enriched
+  artifacts_added: 10
+  pass: local-v1

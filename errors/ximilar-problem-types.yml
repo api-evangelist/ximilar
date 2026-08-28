@@ -1,0 +1,90 @@
+generated: '2026-08-28'
+method: searched
+source: https://docs.ximilar.com/llms-full.txt (status-value tables on the visual-search, insert, delete and VLM reference pages)
+docs: https://docs.ximilar.com/visual-search/overview
+provider: Ximilar
+providerId: ximilar
+format: custom-envelope
+description: >-
+  Ximilar does NOT use RFC 9457 problem+json. Errors and successes alike are returned as a
+  JSON envelope with a `status` object carrying a numeric `code` and a human `text`, and the
+  numeric codes are Ximilar-specific extensions of the HTTP code space (205, 206, 210, 211,
+  220, 411, 412) rather than HTTP status codes. Per-record outcomes are carried separately
+  in each record's `_status` object, so a single 200 HTTP response can contain a mix of
+  succeeded and failed records. Catalogued from the provider's published reference tables.
+envelope:
+  response_field: status
+  fields:
+    code: numeric Ximilar status code (not necessarily an HTTP status)
+    text: human-readable status text
+    request_id: correlation id for the request
+    proc_id: internal processing id
+  per_record_field: _status
+  partial_success: true
+  note: >-
+    Batch operations report partial success. `answer_records` holds what succeeded and
+    `skipped_records` holds what was rejected.
+problems:
+  - code: 200
+    text: OK
+    kind: success
+    meaning: Request processed successfully.
+  - code: 205
+    text: records found
+    kind: success
+    meaning: All requested records were found.
+  - code: 206
+    text: some of the records not found
+    kind: partial
+    meaning: Some of the requested records were not found; the answer is partial.
+    remediation: Compare the returned records against the `_id` values you sent.
+  - code: 210
+    text: records inserted
+    kind: success
+    meaning: All records inserted into the collection.
+  - code: 211
+    text: some records inserted
+    kind: partial
+    meaning: >-
+      Some records inserted, others rejected — typically because a record with the same
+      `_id` already exists. `answer_records` lists the inserted records, `skipped_records`
+      the rejected ones.
+    remediation: De-duplicate on `_id` before retrying, or delete the existing record first.
+  - code: 220
+    text: records deleted
+    kind: success
+    meaning: All requested records were deleted from the collection.
+  - code: 404
+    text: records not found
+    kind: error
+    meaning: None of the requested records were found; an empty answer is returned.
+  - code: 411
+    text: record duplicate
+    kind: error
+    meaning: All records refused because of `_id` duplicity.
+    remediation: Use unique `_id` values, or delete the colliding records first.
+  - code: 412
+    text: hard capacity exceeded
+    kind: error
+    meaning: Records refused because the collection's storage capacity is exceeded.
+    remediation: >-
+      Delete records or move to a plan with a larger Collection Size limit
+      (Free 1,000 / Business 100K–500K / Professional unlimited).
+async_request_states:
+  source: https://docs.ximilar.com/async-api + https://docs.ximilar.com/platform/vlm
+  states:
+    - {state: CREATED, meaning: Submitted and queued.}
+    - {state: PROCESSING, meaning: A worker has claimed the request.}
+    - {state: RETRY, meaning: 'Transient failure (e.g. rate limit or GPU OOM); retried automatically.'}
+    - {state: DONE, meaning: Completed successfully; the response field holds the output.}
+    - {state: FAILED, meaning: Processing failed after all retries were exhausted.}
+    - {state: API_LIMIT_EXCEEDED, meaning: Rate limit hit or insufficient credits.}
+    - {state: NOT_SUPPORTED, meaning: The request or the model is not supported.}
+gaps:
+  - >-
+    Ximilar publishes no consolidated error reference page and no catalogue of authentication
+    or authorization failures (what an invalid token or an inactive plan returns is not
+    documented). The codes above are the complete published set.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

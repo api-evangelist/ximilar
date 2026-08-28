@@ -1,0 +1,127 @@
+generated: '2026-08-28'
+method: searched
+source: https://docs.ximilar.com/ + https://www.ximilar.com/how-we-handle-data/ + https://www.ximilar.com/terms-of-use-privacy/
+provider: Ximilar
+providerId: ximilar
+description: >-
+  Cross-cutting and industry standard conformance for Ximilar, asserted only where the
+  provider's own surface evidences it. Ximilar publishes no OpenAPI, no GraphQL SDL, no
+  AsyncAPI and no Protobuf/WSDL, so contract-standard conformance is negative across the
+  board. Its regulatory posture, by contrast, is unusually explicit for a company this size:
+  a dedicated page maps its services against the EU AI Act, the DSA and the EU Data Act.
+standards:
+  - id: openapi
+    conforms: false
+    evidence: >-
+      No OpenAPI/Swagger document at any probed location — api.ximilar.com/openapi.json,
+      /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs, /docs, /redoc, /schema all
+      404 on the API host; docs.ximilar.com answers 200 for every path with the same SPA
+      shell. No mention of "openapi" or "swagger" anywhere in llms-full.txt.
+  - id: graphql
+    conforms: false
+    evidence: No /graphql surface documented or advertised.
+  - id: asyncapi
+    conforms: false
+    evidence: No AsyncAPI document; webhooks are per-request callbacks. See asyncapi/ximilar-webhooks.yml.
+  - id: grpc-protobuf
+    conforms: false
+    evidence: No .proto in the ximilar-com GitHub org or the ximilar-public GitLab group.
+  - id: soap-wsdl
+    conforms: false
+    evidence: '?wsdl on api.ximilar.com returns 404; the 200 on www.ximilar.com is WordPress serving the homepage for an unknown query string, not a WSDL.'
+  - id: oauth2
+    conforms: false
+    evidence: 'Single account API token in an Authorization: Token header; no OAuth flows, no scopes.'
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration 404s on api.ximilar.com and www.ximilar.com.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a custom `status` object with Ximilar-specific numeric codes (205/206/210/211/220/411/412),
+      not application/problem+json. See errors/ximilar-problem-types.yml.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt 404s on api.ximilar.com and www.ximilar.com.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: Deprecated endpoints are announced in prose only; no Sunset or Deprecation header.
+  - id: llms-txt
+    conforms: true
+    evidence: 'https://docs.ximilar.com/llms.txt returns 200 with a complete, structured llms.txt, plus llms-full.txt.'
+  - id: mcp
+    conforms: true
+    evidence: >-
+      First-party FastMCP server published at ximilar/server/server.py in the official client
+      repository, with 11 tools. Local stdio only — no remote endpoint. See mcp/ximilar-mcp.yml.
+  - id: a2a-agent-card
+    conforms: false
+    evidence: /.well-known/agent-card.json and /.well-known/agent.json 404 on api.ximilar.com and www.ximilar.com.
+  - id: json-api
+    conforms: false
+    evidence: Custom JSON envelope; no JSON:API media type.
+  - id: pagination
+    conforms: true
+    evidence: 'Cursor pagination (cursor + page_size, `next`) on VLM request history; page pagination on platform training resources.'
+  - id: idempotency
+    conforms: partial
+    evidence: >-
+      Natural-key deduplication on collection inserts via the client-supplied `_id`
+      (411 record duplicate / 211 some records inserted). No Idempotency-Key header, and no
+      idempotency on inference or async submission. See conventions/ximilar-conventions.yml.
+  - id: webhooks
+    conforms: true
+    evidence: 'Per-request webhook callback on the async request API, with custom headers and a documented payload.'
+domain_standards:
+  note: >-
+    Computer vision / image recognition has no widely adopted machine-readable API standard
+    of the kind the rubric rewards (there is no SCIM, OData, FHIR, OpenRTB or ISO 20022
+    equivalent for image tagging), so no domain-standard conformance is asserted. Ximilar's
+    taxonomies are its own published vocabularies rather than an external standard.
+    Reward-only: nothing is invented to fill this slot.
+  candidates_checked:
+    - {id: schema.org-product, conforms: false, evidence: 'Fashion/home-decor taxonomies are Ximilar-defined, not schema.org or GS1 aligned in the published docs.'}
+    - {id: gs1-gpc, conforms: false, evidence: 'Taxonomy Mapping is offered as a Professional-plan feature, but no standard taxonomy is named in the public docs.'}
+    - {id: iiif, conforms: false, evidence: No IIIF image API conformance claimed.}
+regulatory:
+  published_page: https://www.ximilar.com/how-we-handle-data/
+  last_updated_on_page: '2026-07-27'
+  regimes:
+    - id: eu-ai-act
+      regulation: Regulation (EU) 2024/1689
+      position: >-
+        Ximilar self-classifies its services as minimal-risk narrow AI: not prohibited under
+        Article 5, not Annex III high-risk, and not general-purpose AI models. It states as a
+        product boundary that it does not build facial recognition, biometric identification,
+        biometric categorisation, emotion inference or social scoring, and that a customer
+        deploying its models in a high-risk use case becomes the Provider/Deployer under
+        Article 25.
+    - id: eu-dsa
+      regulation: Digital Services Act
+      position: >-
+        Operates as a hosting service, not an online platform. Maintains a single point of
+        contact for EU authorities and a notice-and-action mechanism under Article 16; does
+        not proactively monitor stored content (Article 8).
+    - id: eu-data-act
+      regulation: EU Data Act
+      position: >-
+        All customer content, labels, annotations, datasets, prediction results and trained
+        VLM models are exportable through the public API at any time at no extra cost.
+        Model weights, architecture and runtime for Image Recognition and Object Detection
+        remain on Ximilar infrastructure and are not exportable. 30 days of transition
+        assistance on termination.
+    - id: gdpr
+      regulation: Regulation (EU) 2016/679
+      position: >-
+        Ximilar acts as processor under Article 28; full data-processing terms are in the
+        Terms of Use & Privacy.
+certifications:
+  published: []
+  note: >-
+    No SOC 2, ISO 27001, PCI DSS, HIPAA or FedRAMP certification is claimed anywhere on the
+    site, and no trust center exists (trust.ximilar.com and security.ximilar.com do not
+    resolve to a trust page; probe-security-programs.py returned vdp=none trust=none).
+    The compliance posture published is regulatory, not certification-based.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

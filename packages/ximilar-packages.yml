@@ -1,0 +1,82 @@
+generated: '2026-08-28'
+method: searched
+source: https://docs.ximilar.com/sdks + https://pypi.org/project/ximilar-client/ + https://gitlab.com/ximilar-public/ximilar-client
+provider: Ximilar
+providerId: ximilar
+description: >-
+  First-party and third-party client libraries for the Ximilar API. Ximilar's own SDK
+  documentation states that Python is the only client library they publish
+  ("Today, Ximilar offers Python library"), and the registry check below confirms it:
+  ximilar-client on PyPI is the sole official API client. The two TensorFlow libraries
+  are first-party open source from the same team but are machine-learning utilities,
+  not API clients. No npm, RubyGems, crates.io, Packagist (first-party), Maven or NuGet
+  package exists.
+packages:
+  - language: python
+    registry: pypi
+    name: ximilar-client
+    url: https://pypi.org/project/ximilar-client/
+    install: pip install ximilar-client
+    official: true
+    kind: api-client
+    version: 1.39.0
+    published: '2025-05-15'
+    source_code: https://gitlab.com/ximilar-public/ximilar-client
+    license: Apache-2.0
+    note: >-
+      The official Ximilar Python client, published by the Ximilar team
+      (author "Michal Lukac, David Novak and Ximilar.com Team", tech@ximilar.com).
+      It also carries the Ximilar MCP server at ximilar/server/server.py. Latest
+      release 1.39.0 read from pypi.org/pypi/ximilar-client/json on 2026-08-28;
+      that release predates the current docs set, so the client trails the API
+      surface it wraps.
+  - language: python
+    registry: pypi
+    name: tf-image
+    url: https://pypi.org/project/tf-image/
+    install: pip install tf-image
+    official: true
+    kind: ml-library
+    version: 0.2.0
+    published: '2021-07-16'
+    source_code: https://github.com/ximilar-com/tf-image
+    note: >-
+      First-party Ximilar open source (github.com/ximilar-com), but a TensorFlow 2
+      image-augmentation library rather than an API client. Last release 2021-07-16.
+  - language: python
+    registry: pypi
+    name: tf-metric-learning
+    url: https://pypi.org/project/tf-metric-learning/
+    install: pip install tf-metric-learning
+    official: true
+    kind: ml-library
+    version: 1.0.12
+    published: '2021-10-21'
+    source_code: https://github.com/ximilar-com/tf-metric-learning
+    note: >-
+      First-party Ximilar open source, a TensorFlow 2 metric/similarity learning
+      library. Not an API client. Last release 2021-10-21.
+  - language: php
+    registry: packagist
+    name: solwee/ximilar-face-recognition-api
+    url: https://packagist.org/packages/solwee/ximilar-face-recognition-api
+    install: composer require solwee/ximilar-face-recognition-api
+    official: false
+    kind: api-client
+    version: 0.2.7
+    published: '2025-12-08'
+    note: >-
+      Community PHP client for the Ximilar face-recognition endpoints, published by
+      Solwee, not by Ximilar. Recorded for completeness; not counted as a first-party SDK.
+registries_checked:
+  - {registry: pypi, result: hit, note: ximilar-client, tf-image, tf-metric-learning}
+  - {registry: npm, result: none, note: 'registry.npmjs.org/-/v1/search?text=ximilar returned zero packages'}
+  - {registry: rubygems, result: none}
+  - {registry: crates.io, result: none}
+  - {registry: packagist, result: third-party-only, note: solwee/ximilar-face-recognition-api}
+  - {registry: maven-central, result: none}
+  - {registry: nuget, result: none}
+  - {registry: pkg.go.dev, result: none}
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -4,84 +4,137 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Ximilar
 providerId: ximilar
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-08-28'
+generated: '2026-08-28'
+method: searched
+source: https://www.ximilar.com/pricing/ + https://docs.ximilar.com/quickstart + https://docs.ximilar.com/async-api
+docs: https://www.ximilar.com/pricing/
 tags:
   - Rate Limiting
   - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Ximilar API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+  - Credits
+description: >-
+  Published limits for the Ximilar API. This file REPLACES a 2026-05-04 scaffold that
+  asserted per-minute request ceilings and X-RateLimit-* response headers Ximilar has never
+  documented. The honest picture: Ximilar throttles by CREDIT QUOTA and by resource count,
+  not by requests per second, and it publishes NO rate-limit response headers and NO 429
+  contract. On the synchronous surface a caller has no runtime backoff signal at all; on the
+  asynchronous surface throttling surfaces as a request STATE (RETRY, API_LIMIT_EXCEEDED)
+  rather than an HTTP status.
+limit_count: 9
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  published: false
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header is documented anywhere in the docs
+    corpus (checked against docs.ximilar.com/llms-full.txt, 614KB, on 2026-08-28).
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  throttled: null
+  quotaExceeded: null
+  note: >-
+    No HTTP status for throttling or quota exhaustion is documented. The only published
+    exhaustion signal is on the async request API, where the request status becomes
+    API_LIMIT_EXCEEDED ("Rate limit hit or insufficient credits") or RETRY ("a transient
+    failure occurred, e.g. rate limit or GPU OOM; the request will be retried automatically").
 limits:
   - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
+    name: Free monthly credit allowance
+    scope: account
+    metric: api_credits_per_month
+    limit: 1000
+    timeFrame: month
+    source: https://www.ximilar.com/pricing/
+  - tier: business
+    name: Business monthly credit allowance
+    scope: account
+    metric: api_credits_per_month
+    limit: 500000
+    limit_range: [100000, 300000, 500000]
+    timeFrame: month
+    source: https://www.ximilar.com/pricing/
+    note: Sold as three fixed steps — Business 100K / 300K / 500K.
+  - tier: professional
+    name: Professional monthly credit allowance
+    scope: account
+    metric: api_credits_per_month
+    limit: 40000000
+    limit_range: [1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 10000000, 20000000, 30000000, 40000000]
+    timeFrame: month
+    source: https://www.ximilar.com/pricing/
+    note: Eleven fixed steps from 1M to 40M credits per month.
+  - tier: all
+    name: Batch size per request
+    scope: request
+    metric: records_per_request
     limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Ximilar
+    timeFrame: request
+    source: https://docs.ximilar.com/quickstart
+    note: >-
+      "This allows you to send up to 10 images (records) in a single request via the
+      `records` field." Each record is billed individually.
   - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+    name: Visual search collection size
+    scope: collection
+    metric: records_per_collection
     limit: 1000
-    timeFrame: month
-    applies:
-      - Ximilar
+    source: https://www.ximilar.com/pricing/
+  - tier: business
+    name: Visual search collection size
+    scope: collection
+    metric: records_per_collection
+    limit: 500000
+    limit_range: [100000, 300000, 500000]
+    source: https://www.ximilar.com/pricing/
   - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
+    name: Visual search collection size
+    scope: collection
+    metric: records_per_collection
+    limit: -1
+    source: https://www.ximilar.com/pricing/
+    note: Published as "unlimited".
+  - tier: all
+    name: Number of collections
+    scope: account
+    metric: collections
+    limit: 10
+    limit_by_tier: {free: 1, business_100k: 3, business_300k: 5, business_500k: 8, professional: 10}
+    source: https://www.ximilar.com/pricing/
+  - tier: all
+    name: VLM request history page size
+    scope: request
+    metric: results_per_page
     limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Ximilar
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Ximilar
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Ximilar
+    default: 20
+    source: https://docs.ximilar.com/platform/vlm
+    note: 'GET /vlm/v2/request/history/ — page_size default 20, max 100.'
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Credit exhaustion
+    description: >-
+      Once the monthly credit allowance is spent, calls that consume credits fail. Additional
+      credit packs can be purchased on Business and Professional plans. Only calls that send
+      or upload an image for AI analysis consume credits.
+    source: https://docs.ximilar.com/quickstart
+  - name: Automatic retry on the async surface
+    description: >-
+      Asynchronous requests that hit a transient failure — explicitly including a rate limit
+      — are moved to the RETRY state and retried by Ximilar automatically, with no client
+      action required.
+    source: https://docs.ximilar.com/async-api
+  - name: Storage capacity
+    description: >-
+      Inserts into a collection that exceed the plan's collection size are refused with
+      status 412 "hard capacity exceeded".
+    source: https://docs.ximilar.com/visual-search/overview
+gaps:
+  - No per-second, per-minute or per-hour request ceiling is published for any tier.
+  - No rate-limit response headers and no 429 contract are documented.
+  - >-
+    An agent calling the synchronous services has no published runtime signal to back off on;
+    the only throttling feedback Ximilar documents lives on the asynchronous request API.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

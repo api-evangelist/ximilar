@@ -1,0 +1,84 @@
+generated: '2026-08-28'
+method: searched
+source: https://demo.ximilar.com/ + https://www.ximilar.com/pricing/ + https://docs.ximilar.com/quickstart
+provider: Ximilar
+providerId: ximilar
+description: >-
+  Ximilar ships no test/live key separation and no sandbox environment. There is one
+  production API host, one account token, and every call is billed in credits. What it does
+  publish is (a) a public no-signup demo application where the marquee services can be run
+  in a browser, (b) a Free plan with a real monthly credit allowance that acts as the
+  evaluation path, and (c) published example image URLs used verbatim in the docs, which are
+  the closest thing to fixtures on this API. Nothing below is invented — every value is
+  copied from the provider's own pages.
+test_live_separation:
+  supported: false
+  key_prefixes: none
+  modes: none
+  note: >-
+    One token, one host (https://api.ximilar.com). There is no test-mode key, no sandbox
+    subdomain and no simulation flag. An agent cannot rehearse a call for free once the free
+    credits are spent.
+demo:
+  url: https://demo.ximilar.com/
+  http_status: 200
+  signup_required: false
+  description: >-
+    Hosted browser demo of the Ximilar services — upload or pick an image and see the live
+    result. Linked from the marketing site as "Try Demo".
+  known_surfaces:
+    - https://demo.ximilar.com/collectibles-recognition
+    - https://demo.ximilar.com/search-by-photo
+free_tier_as_sandbox:
+  plan: Free
+  price: '0'
+  currency: EUR
+  credits_per_month: 1000
+  card_required: false
+  source: https://www.ximilar.com/pricing/
+  included_services:
+    - Dominant Colors
+    - AI Card Grading
+    - Photo Tagging
+    - Photo Similarity
+    - Reverse Image Search
+    - Product Similarity
+    - Dominant Colors Similarity
+    - Background Removal
+    - OCR
+    - Image Classification & Regression
+    - Object Detection
+    - 'Flows: Combine AI Models'
+    - Person Detection & Recognition
+    - Vision Language Model
+  limits:
+    collections: 1
+    collection_size: 1000
+    similarity_tasks: 3
+    recognition_tasks: 3
+    detection_labels: 3
+    flows: 1
+  note: >-
+    The Free plan is the only no-cost path to a real API response. Its credit allowance is
+    small relative to the credit cost of the heavier operations — a single card grade costs
+    100 credits, so the free allowance is roughly ten graded cards.
+published_example_images:
+  description: >-
+    Image URLs Ximilar uses in its own documentation examples. They are publicly reachable
+    and are what the docs' cURL/Python snippets post, so they double as the API's fixture set.
+  images:
+    - https://images.ximilar.com/examples/cards/pokemon.jpeg
+    - https://images.ximilar.com/examples/cards/mew_pokemon.jpeg
+    - https://images.ximilar.com/examples/demo/collectibles/pokemon.jpeg
+    - https://images.ximilar.com/examples/demo/collectibles/gideon.jpeg
+    - https://images.ximilar.com/examples/fashion_products/01_1149810256_SI_00.jpeg
+    - https://images.ximilar.com/examples/fail/footwearx.jpg
+    - https://images.ximilar.com/examples/fail/furniturex.jpg
+  note: >-
+    The two URLs under /examples/fail/ are the docs' deliberate negative cases — images the
+    services are expected to fail on.
+test_clocks: not supported
+fixture_tooling: none published
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

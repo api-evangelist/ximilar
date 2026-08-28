@@ -1,0 +1,173 @@
+generated: '2026-08-28'
+method: searched
+source: https://docs.ximilar.com/quickstart + https://docs.ximilar.com/async-api + https://docs.ximilar.com/visual-search/overview + https://docs.ximilar.com/platform/vlm
+provider: Ximilar
+providerId: ximilar
+description: >-
+  Cross-cutting request/response semantics for the Ximilar REST API, read from the
+  provider's own documentation. Ximilar publishes no OpenAPI, so every line here comes from
+  the docs corpus rather than a specification.
+authentication:
+  style: api-key
+  header: 'Authorization: Token <API_TOKEN>'
+  content_type: application/json
+  artifact: authentication/ximilar-authentication.yml
+  docs: https://docs.ximilar.com/quickstart
+request_shape:
+  transport: REST over HTTPS, JSON in and JSON out
+  base_url: https://api.ximilar.com
+  dominant_method: POST
+  note: >-
+    "All API methods use the POST method, require a JSON object in the request body, and
+    return another JSON record as a response." Platform/training resources additionally use
+    GET/PUT/DELETE.
+  image_input:
+    fields: [_url, _base64]
+    containers: [records, query_record, query_records]
+    accepted_formats: [JPG, JPEG, PNG, WEBP, HEIC, BMP, TIFF, JFIF]
+    limited: [GIF (first frame only)]
+    unsupported: [AVIF, JP2, PSD, SVG, HEIF, PDF]
+    constraint: '_url must be a direct, publicly reachable link to an image file'
+batching:
+  supported: true
+  max_records_per_request: 10
+  ordering: response preserves the order of submitted records
+  billing: each record is billed individually; batching is faster, not cheaper
+  docs: https://docs.ximilar.com/quickstart
+idempotency:
+  supported: partial
+  style: natural-key deduplication (no Idempotency-Key header)
+  key: '_id supplied by the client on each record'
+  scope: collection insert operations on the Visual Search / similarity services
+  behaviour: >-
+    Re-inserting a record whose `_id` already exists in the collection is refused rather
+    than duplicated — status 411 "record duplicate" when every record collides, 211
+    "some records inserted" with the collisions returned in `skipped_records` when only
+    some do. A retry of a partially-delivered insert therefore converges instead of
+    creating duplicates.
+  header: null
+  retention: not documented
+  not_covered: >-
+    Inference calls (tagging, detection, OCR, upscaling, grading, search) have no
+    idempotency contract: a repeated call re-runs the model and consumes credits again.
+    Asynchronous requests are identified by a server-issued UUID, so a duplicate submission
+    creates a second request and is billed twice.
+  docs: https://docs.ximilar.com/visual-search/overview
+pagination:
+  styles:
+    - style: cursor
+      applies_to: 'VLM request history (GET /vlm/v2/request/history/)'
+      params: [cursor, page_size]
+      defaults: {page_size: 20, max_page_size: 100}
+      response_field: next
+      docs: https://docs.ximilar.com/platform/vlm
+    - style: page
+      applies_to: 'platform training resources (labels, training images, tasks)'
+      params: [page, page_size]
+      response_fields: [count, next]
+      note: >-
+        The Python client surfaces this as a `next_page` token returned alongside each page
+        of results (`images, next_page, status = label.get_training_images(next_page)`).
+      docs: https://docs.ximilar.com/platform/classification
+field_selection:
+  supported: true
+  param: fields_to_return
+  applies_to: Visual Search / similarity operations
+  description: Array of record fields to include in each answer record.
+  expansion: not supported
+metadata:
+  supported: true
+  description: >-
+    Arbitrary custom fields may be stored on a record alongside `_id` and `_url` and are
+    returned via `fields_to_return`. There is no separate metadata namespace.
+request_tracing:
+  header: null
+  response_fields: [status.request_id, status.proc_id, _status.request_id]
+  description: >-
+    Correlation ids are returned in the response body rather than in a header — `request_id`
+    per request and `proc_id` per processing job, plus a per-record `request_id` inside each
+    record's `_status`. There is no client-supplied trace header.
+versioning:
+  scheme: uri-path
+  current: v2
+  artifact: lifecycle/ximilar-lifecycle.yml
+error_envelope:
+  style: custom status object (NOT RFC 9457)
+  fields: [status.code, status.text, status.request_id, status.proc_id]
+  per_record: _status
+  partial_success: true
+  artifact: errors/ximilar-problem-types.yml
+rate_limit_signaling:
+  headers_published: false
+  http_429_documented: false
+  async_signal: 'request status API_LIMIT_EXCEEDED — "Rate limit hit or insufficient credits"'
+  transient_signal: 'request status RETRY — transient failure such as rate limit or GPU OOM; retried automatically'
+  artifact: rate-limits/ximilar-rate-limits.yml
+  note: >-
+    Ximilar documents no rate-limit response headers and no 429 contract. On the async
+    surface, throttling appears as a request STATE rather than an HTTP status, which means a
+    synchronous caller has no published runtime signal to back off on.
+dry_run_mode:
+  supported: false
+  status: not-documented
+  note: No preview/simulate/validate-only mode is documented on any endpoint.
+reversibility:
+  grade: documented
+  summary: >-
+    Every stateful write on the Ximilar platform has a documented inverse operation — records
+    can be deleted from a collection, labels removed from images and tasks, datasets removed
+    from a VLM task — and the delete path has its own success code (220 "records deleted").
+    What is NOT published is any window: no undo period, no soft-delete, no restore endpoint
+    and no statement of how long a deleted record remains recoverable. Grade is therefore
+    `documented`, not `verified`. No window is asserted here because the provider states none.
+  write_surfaces:
+    - operation: insert records into a collection
+      endpoint: 'https://api.ximilar.com/{service}/v2/insert'
+      reversal: 'POST /v2/delete or /v2/deleteByFilter'
+      reversal_endpoint: https://api.ximilar.com/photo/search/v2/delete
+      success_code: 220 records deleted
+      window: null
+      window_source: null
+      docs: https://docs.ximilar.com/visual-search/overview
+    - operation: add a label to a training image or task
+      endpoint: 'https://api.ximilar.com/recognition/v2/training-image/__IMAGE_ID__/add-label'
+      reversal: 'POST .../remove-label'
+      reversal_endpoint: https://api.ximilar.com/recognition/v2/training-image/__IMAGE_ID__/remove-label
+      window: null
+      docs: https://docs.ximilar.com/platform/classification
+    - operation: add a dataset to a VLM task
+      endpoint: 'https://api.ximilar.com/vlm/v2/task/__TASK_ID__/add-dataset/'
+      reversal: 'POST .../remove-dataset/'
+      reversal_endpoint: https://api.ximilar.com/vlm/v2/task/__TASK_ID__/remove-dataset/
+      window: null
+      docs: https://docs.ximilar.com/platform/vlm
+    - operation: add images/objects to a similarity group
+      endpoint: 'https://api.ximilar.com/similarity/training/v2/group/__GROUP_ID__/'
+      reversal: 'remove-images / remove-objects / remove-groups'
+      window: null
+      docs: https://docs.ximilar.com/platform/similarity
+    - operation: submit an asynchronous request
+      endpoint: https://api.ximilar.com/account/v2/request
+      reversal: none published
+      window: null
+      note: >-
+        There is no cancel endpoint for a queued or processing async request, and credits
+        are consumed on processing. This is the one write surface with no documented undo.
+      docs: https://docs.ximilar.com/async-api
+  irreversible:
+    - 'Credit consumption. Credits spent on an inference call are not refundable or reversible; there is no void or reversal operation on billing.'
+    - 'Async request submission — no cancel/abort endpoint is published.'
+  agent_guidance: >-
+    An agent may safely retry a collection insert (duplicates are refused, not doubled) and
+    may undo it by deleting on `_id`. It must NOT blind-retry an inference or async request:
+    each retry re-runs the model and spends credits with no reversal path.
+cross_links:
+  authentication: authentication/ximilar-authentication.yml
+  errors: errors/ximilar-problem-types.yml
+  lifecycle: lifecycle/ximilar-lifecycle.yml
+  rate_limits: rate-limits/ximilar-rate-limits.yml
+  webhooks: asyncapi/ximilar-webhooks.yml
+  plans: plans/ximilar-plans-pricing.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

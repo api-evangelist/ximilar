@@ -1,0 +1,131 @@
+generated: '2026-08-28'
+method: searched
+status: published
+source: https://docs.ximilar.com/mcp
+provider: Ximilar
+providerId: ximilar
+description: >-
+  Ximilar publishes a first-party MCP server for its Computer Vision Platform. It is a
+  Python FastMCP server distributed inside the official ximilar-client repository
+  (ximilar/server/server.py) and run locally over stdio by the user's MCP client; there
+  is no hosted/remote MCP endpoint. The tool list below was read from the provider's MCP
+  documentation page AND verified against the server source, which is why fashion_region_id
+  appears here even though the docs table omits it.
+deployment:
+  mode: local-stdio
+  endpoint: null
+  install: 'fastmcp install MCP_CLIENT_NAME PATH_TO_XIMILAR_CLIENT/ximilar/server/server.py --with fastmcp --with requests --env XIMILAR_API_KEY=API_KEY'
+  package: https://gitlab.com/ximilar-public/ximilar-client
+  auth: api-key
+  verified: searched
+  note: >-
+    Verified by reading https://docs.ximilar.com/mcp (HTTP 200) and the server source at
+    https://gitlab.com/ximilar-public/ximilar-client/-/raw/master/ximilar/server/server.py
+    (HTTP 200, FastMCP("ximilar-mcp-server")). No hosted endpoint is advertised anywhere in
+    the docs, and no mcp.ximilar.com host resolves; nothing was guessed.
+server:
+  name: ximilar-mcp-server
+  transport: stdio
+  framework: fastmcp
+  runtime: python >= 3.10
+  source_file: https://gitlab.com/ximilar-public/ximilar-client/-/raw/master/ximilar/server/server.py
+  auth:
+    type: api-key
+    env: XIMILAR_API_KEY
+    header: 'Authorization: Token <API_KEY>'
+client_config:
+  claude_desktop: |
+    {
+      "mcpServers": {
+        "ximilar-mcp": {
+          "command": "uv",
+          "args": ["run", "--with", "fastmcp", "--with", "requests",
+                   "fastmcp", "run", "PATH_TO_XIMILAR_CLIENT/ximilar/server/server.py"],
+          "env": {"XIMILAR_API_KEY": "YOUR_API_KEY"}
+        }
+      }
+    }
+tools:
+  - name: grade_card
+    category: Card Grading
+    description: Grade collectible cards such as TCGs and sports cards (corners, edges, surface, centering).
+    inputs: [img_path]
+    rest_endpoint: https://api.ximilar.com/card-grader/v2/
+    docs: https://docs.ximilar.com/collectibles/card-grading
+  - name: tcg_card_id
+    category: Collectibles
+    description: Identify trading card game (TCG) cards from an image URL or file path.
+    inputs: [img_path]
+    rest_endpoint: https://api.ximilar.com/collectibles/v2/tcg_id
+    docs: https://docs.ximilar.com/collectibles/recognition
+  - name: sports_card_id
+    category: Collectibles
+    description: Identify sports cards from an image URL or file path.
+    inputs: [img_path]
+    rest_endpoint: https://api.ximilar.com/collectibles/v2/sport_id
+    docs: https://docs.ximilar.com/collectibles/recognition
+  - name: comic_book_and_manga_id
+    category: Collectibles
+    description: Identify comic books and manga from an image.
+    inputs: [img_path]
+    rest_endpoint: https://api.ximilar.com/collectibles/v2/comics_id
+    docs: https://docs.ximilar.com/collectibles/recognition
+  - name: tcg_price_data_search
+    category: Collectibles
+    description: Search prices and listings for TCG cards using a text query (name + set + card number).
+    inputs: [query]
+    rest_endpoint: https://api.ximilar.com/collectibles/text/v2/tcg/pricing
+    docs: https://docs.ximilar.com/collectibles/text-search
+  - name: visual_search
+    category: Similarity
+    description: Find visually similar images with KNN search inside one of your collections.
+    inputs: [img_path, collection_id, k]
+    rest_endpoint: https://api.ximilar.com/similarity/photos/v2/visualKNN
+    docs: https://docs.ximilar.com/visual-search/overview
+  - name: fashion_detect_tags
+    category: Fashion Tagging
+    description: Detect fashion objects and their tags; optionally tag every detected object rather than the largest.
+    inputs: [img_path, detect_tags_for_all_objs]
+    rest_endpoint: https://api.ximilar.com/tagging/fashion/v2/detect_tags
+    rest_endpoint_all: https://api.ximilar.com/tagging/fashion/v2/detect_tags_all
+    docs: https://docs.ximilar.com/tagging/fashion
+  - name: fashion_meta_tags
+    category: Fashion Tagging
+    description: Return fashion meta tags — Background, Scene, View and Person part.
+    inputs: [img_path]
+    rest_endpoint: https://api.ximilar.com/tagging/fashion/v2/meta
+    docs: https://docs.ximilar.com/tagging/fashion
+  - name: fashion_region_id
+    category: Fashion Tagging
+    description: Detect the fashion region of an image (e.g. Indian, generic).
+    inputs: [img_path]
+    rest_endpoint: https://api.ximilar.com/tagging/fashion/v2/region
+    docs: https://docs.ximilar.com/tagging/fashion
+    note: Present in the server source but not listed in the docs endpoint table.
+  - name: fashion_detect
+    category: Fashion Tagging
+    description: Detect fashion objects and their locations only, without tagging.
+    inputs: [img_path]
+    rest_endpoint: https://api.ximilar.com/tagging/fashion/v2/detect
+    docs: https://docs.ximilar.com/tagging/fashion
+  - name: fashion_tags
+    category: Fashion Tagging
+    description: Return fashion tags and attributes only, without detection.
+    inputs: [img_path]
+    rest_endpoint: https://api.ximilar.com/tagging/fashion/v2/tags
+    docs: https://docs.ximilar.com/tagging/fashion
+coverage:
+  tools_published: 11
+  tools_in_docs_table: 10
+  rest_surface_covered: >-
+    The MCP server exposes Collectibles, Card Grading, Fashion Tagging and Visual Search
+    only. The documented REST surface is much larger — Computer Vision Platform training
+    (recognition, detection, segmentation), VLM, Home Decor, Photo Tagging, OCR, Upscaler,
+    Background Removal, Product Description and the async request API have no MCP tool.
+  crosswalk: >-
+    No tool-crosswalk artifact is emitted: Ximilar publishes no OpenAPI, so there are no
+    operationIds to bind these tools to. The backing REST endpoint URL is recorded inline
+    on each tool instead.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

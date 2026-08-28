@@ -1,0 +1,65 @@
+generated: '2026-08-28'
+method: searched
+source: https://docs.ximilar.com/visual-search/overview + https://status.ximilar.com/ + https://www.ximilar.com/terms-of-use-privacy/
+provider: Ximilar
+providerId: ximilar
+description: >-
+  Ximilar versions its REST surface in the URI path (every documented endpoint is /v2/) and
+  runs a public status page. It publishes no formal deprecation policy, no Sunset/Deprecation
+  header support and no SLA document; the only deprecation signal found is a plain-prose
+  notice in the Visual Search docs naming two superseded endpoint families.
+versioning:
+  scheme: uri-path
+  current: v2
+  docs: https://docs.ximilar.com/quickstart
+  note: >-
+    All documented services sit under /v2/ (e.g. /tagging/fashion/v2/tags,
+    /collectibles/v2/tcg_id, /account/v2/request). No version negotiation header, no dated
+    version train, and no published policy for how a new major version would be introduced.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  signal: prose notice in the docs
+  source: https://docs.ximilar.com/visual-search/overview
+  deprecated_endpoints:
+    - path: https://api.ximilar.com/similarity/fashion/v2/[method]
+      label: Fashion Search (old)
+      replacement: https://api.ximilar.com/similarity/fashion-new/v2/[method]
+      removal_date: null
+      note: 'Docs state only "will be removed in the future" — no date given.'
+    - path: https://api.ximilar.com/similarity/homedecor/v2/[method]
+      label: Furniture & Home Decor Search (old)
+      replacement: https://api.ximilar.com/similarity/homedecor-new/v2/[method]
+      removal_date: null
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No SLA or uptime commitment is published on the pricing page, the terms page or the
+    status page. Support tiers are differentiated instead (limited e-mail / standard /
+    priority + ML-expert consultations).
+status_page: https://status.ximilar.com/
+status_page_detail:
+  verified: '2026-08-28'
+  http_status: 200
+  features: [uptime 24h/7d/30d/90d, incident history, email subscription, per-service status]
+data_retention:
+  - surface: asynchronous requests
+    retention: '2 weeks (default) before automatic cleanup'
+    source: https://docs.ximilar.com/platform/vlm
+    note: Download or store the `response` if it is needed long-term.
+  - surface: account data export
+    policy: >-
+      Under the EU Data Act section of How We Handle Data, all customer content, labels,
+      annotations, datasets, prediction results and trained VLM models are exportable
+      through the public API at any time at no extra cost. Model weights, architecture and
+      runtime for Image Recognition and Object Detection are not exportable.
+    source: https://www.ximilar.com/how-we-handle-data/
+  - surface: account termination
+    policy: 'reasonable transition assistance for 30 days'
+    source: https://www.ximilar.com/how-we-handle-data/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

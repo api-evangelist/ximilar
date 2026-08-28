@@ -1,0 +1,73 @@
+generated: '2026-08-28'
+method: searched
+source: https://docs.ximilar.com/async-api
+docs: https://docs.ximilar.com/async-api
+provider: Ximilar
+providerId: ximilar
+spec_type: none
+description: >-
+  Ximilar publishes NO AsyncAPI document — no /asyncapi.yaml on any host, no event catalog,
+  and no mention of AsyncAPI anywhere in the docs corpus. It does publish a real webhook
+  surface: the asynchronous request API accepts a per-request webhook configuration and POSTs
+  the completed result to the caller's endpoint. This is a per-request callback, not a
+  subscription/event-type model, so there is no event catalog to enumerate — the catalogue
+  below is the delivery contract as the provider documents it.
+event_surface:
+  style: per-request callback
+  subscription_model: false
+  event_types_published: false
+  note: >-
+    A webhook is attached to an individual async request at submission time. There is no
+    account-level webhook registration, no event-type taxonomy, no signature/HMAC
+    verification scheme, and no documented retry policy for webhook delivery.
+webhooks:
+  - name: async-request-completed
+    trigger: 'Async request status changes to DONE'
+    method: POST
+    content_type: application/json
+    target: caller-supplied endpoint (webhook.endpoint)
+    custom_headers: 'supported — webhook.headers is an optional map sent with the callback'
+    configured_on:
+      endpoint: https://api.ximilar.com/account/v2/request
+      field: webhook
+      example_request: |
+        {
+          "type": "upscaler",
+          "endpoint": "upscale_2x",
+          "records": [{"_url": "__URL_PATH__"}],
+          "webhook": {
+            "endpoint": "__YOUR_POST_URL__",
+            "headers": {"optional_field": "optional_value"}
+          }
+        }
+    payload_shape: |
+      {
+        "status": "DONE",
+        "id": "__ASYNC_REQUEST_ID__",
+        "type": "upscaler",
+        "response": {
+          "records": [
+            {
+              "_id": "__RECORD_ID__",
+              "_url": "__ORIGINAL_URL_PATH__",
+              "_status": {"code": 200, "text": "OK", "request_id": "__REQUEST_ID__"},
+              "_upscaled_image_url": "__UPSCALED_URL_PATH__"
+            }
+          ]
+        }
+      }
+    services_supported:
+      - {type: upscaler, docs: https://docs.ximilar.com/image-tools/upscaler}
+      - {type: flows, docs: https://docs.ximilar.com/platform/flows}
+      - {type: collectibles-recognition, docs: https://docs.ximilar.com/collectibles/recognition}
+      - {type: card-grader, docs: https://docs.ximilar.com/collectibles/card-grading}
+    polling_alternative:
+      status: https://api.ximilar.com/account/v2/request/__ID__/status
+      result: https://api.ximilar.com/account/v2/request/__ID__
+gaps:
+  - No AsyncAPI (or any machine-readable event) document is published.
+  - No webhook signature or shared-secret verification scheme is documented.
+  - No webhook delivery-retry or dead-letter policy is documented.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
