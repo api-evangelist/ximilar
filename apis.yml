@@ -37,6 +37,19 @@ position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ximilar.png
 tags:
+- Computer-Vision
+- Image Recognition
+- Visual Search
+- Image Tagging
+- Machine-Learning
+- Artificial Intelligence
+- OCR
+- Collectibles
+- Fashion
+- E-Commerce
+- MCP
+- Image Processing
+tags_raw:
 - Computer Vision
 - Image Recognition
 - Visual Search
@@ -137,6 +150,14 @@ apis:
   humanURL: https://docs.ximilar.com/
   baseURL: https://api.ximilar.com
   tags:
+  - Computer-Vision
+  - Image Recognition
+  - Visual Search
+  - Image Tagging
+  - OCR
+  - Collectibles
+  - Machine-Learning
+  tags_raw:
   - Computer Vision
   - Image Recognition
   - Visual Search
