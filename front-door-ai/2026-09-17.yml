@@ -1,0 +1,33 @@
+# Front Door AI Index — ximilar — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: ximilar
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.ximilar.com
+  final_host: www.ximilar.com
+  ownership: own
+  owner: ximilar
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 50
+  host_score: 50
+  density: 13.07
+  words: 3825
+  tiers:
+    agentic: 4
+    core: 46
+    model: 0
+  ambiguous: 3
+  top_terms:
+    AI: 37
+    LLMs: 3
+    fine-tune: 3
+    machine learning: 3
+    artificial intelligence: 2
+    intelligence: 2
+    automation: 1
+    inference: 1
+    neural network: 1
