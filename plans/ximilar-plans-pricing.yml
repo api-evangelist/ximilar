@@ -1856,3 +1856,188 @@ plans:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  units:
+  - credit
+  - data
+  - object
+  - request
+  plans:
+  - name: Free
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Business 100K
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Business 300K
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Business 500K
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 1M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 2M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 3M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 4M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 5M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 6M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 7M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 10M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 20M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 30M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Professional 40M
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    - data
+    - object
+    - request
+    periods:
+    - month
+  - name: Custom / Contact us
+    access: enterprise
+    model: free
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
