@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/ximilar/integrations
+- https://n8n.io/integrations/ximilar/
+- https://composio.dev/toolkits/ximilar
+- https://monid.ai/tools/ximilar
+checked:
+- https://composio.dev/toolkits/ximilar
+- https://monid.ai/tools/ximilar
+- https://n8n.io/integrations/ximilar/
+- https://zapier.com/apps/ximilar/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
