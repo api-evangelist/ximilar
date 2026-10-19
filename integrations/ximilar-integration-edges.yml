@@ -1,16 +1,62 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/ximilar/integrations
 - https://n8n.io/integrations/ximilar/
 - https://composio.dev/toolkits/ximilar
 - https://monid.ai/tools/ximilar
 checked:
+- https://api.nuget.org/v3
 - https://composio.dev/toolkits/ximilar
+- https://crates.io/api/v1
 - https://monid.ai/tools/ximilar
 - https://n8n.io/integrations/ximilar/
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://zapier.com/apps/ximilar/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: PyPI
+  partner: pypi
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Python)
+  evidence: https://pypi.org/project/tf-image/
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: PyPI (public registry JSON)
+    spec_file: null
+    language: Python
+    packages:
+    - name: tf-image
+      version: 0.2.0
+      released: '2021-07-16'
+      released_field: upload_time
+      lapsed: true
+      page: https://pypi.org/project/tf-image/
+      repo_leg: github-org:ximilar-com
+      publisher_leg: email:ximilar.com
+      matched_by: domain
+    - name: tf-metric-learning
+      version: 1.0.12
+      released: '2021-10-21'
+      released_field: upload_time
+      lapsed: true
+      page: https://pypi.org/project/tf-metric-learning/
+      repo_leg: github-org:ximilar-com
+      publisher_leg: email:ximilar.com
+      matched_by: domain
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 templates: []
