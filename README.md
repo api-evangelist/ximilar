@@ -1,4 +1,4 @@
-# Ximilar (ximilar)
+# Ximilar
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,43 +64,128 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-With Fashion Search, your customers can take real-life pictures 
+Ximilar is a Czech visual-AI company that sells computer vision as a REST API and a no-code platform. Its api.ximilar.com surface covers image recognition and tagging (fashion, home decor, stock photo), collectibles AI (trading-card, sports-card and comic identification, AI card grading and TCG price search), visual search and similarity (reverse image search, product matching, multimodal text-to-image), OCR, background removal and image upscaling, plus a Computer Vision Platform for training custom classification, regression, detection and vision-language models and chaining them with Flows. Everything is billed in API credits against a monthly plan allowance, authenticated with a single account token, and callable synchronously or through an asynchronous request API with webhook callbacks. Ximilar also publishes a first-party Python SDK and a local MCP server exposing eleven of its services to LLM clients.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/ximilar/refs/heads/main/apis.yml)
+**Areas:** Computer Vision · Image Recognition · Visual Search · Image Tagging · Machine Learning · Artificial Intelligence · OCR · Collectibles · Fashion · E-Commerce · MCP · Image Processing
 
-## Scope
+## Ximilar on APIs.io
 
-- **Type:** Index 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
+Everything profiled for Ximilar is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ximilar/](https://apis.io/providers/ximilar/)** — or go straight to one of the APIs or properties below.
 
-## Tags:
+### APIs (1)
 
- - API
+- [Ximilar API](https://apis.io/apis/ximilar/ximilar/) — The Ximilar REST API at https://api.ximilar.com. One account token in an 'Authorization: Token' header unlocks every service the active plan includes:…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-03-01 
-- **Modified:** 2026-03-16 
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Ximilar
-With Fashion Search, your customers can take real-life pictures 
+Event-driven and webhook contracts.
 
-**Human URL:** [https://docs.ximilar.com/services/fashion_search/](https://docs.ximilar.com/services/fashion_search/)
+- [Ximilar Webhooks](https://apis.io/asyncapis/ximilar/ximilar-webhooks/)
 
+#### MCP servers (1)
 
-#### Tags:
+Model Context Protocol servers that expose the API to agents.
 
- - API
+- [ximilar-mcp-server](https://apis.io/servers/ximilar/ximilar-mcp-server/)
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://docs.ximilar.com/services/fashion_search/)
+Authentication, trust centre, and vulnerability disclosure.
 
-## Maintainers
+- [Ximilar Authentication](https://apis.io/security/ximilar/ximilar-authentication/)
+- [Ximilar Domain Security](https://apis.io/security/ximilar/ximilar-domain-security/)
 
-**FN:** Kin Lane
+#### Plans and pricing (1)
 
-**Email:** kin@apievangelist.com
+Published plans, tiers and prices.
+
+- [Ximilar Plans Pricing](https://apis.io/plans/ximilar/ximilar-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Ximilar Rate Limits](https://apis.io/rate-limits/ximilar/ximilar-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Ximilar Finops](https://apis.io/finops/ximilar/ximilar-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.ximilar.com/)
+- [Documentation](https://docs.ximilar.com/)
+- [Getting started](https://docs.ximilar.com/quickstart)
+- [API reference](https://docs.ximilar.com/services)
+- [Pricing](https://www.ximilar.com/pricing/)
+- [Sign up](https://app.ximilar.com/register)
+- [Support](https://www.ximilar.com/faq/)
+- [Blog](https://www.ximilar.com/blog/)
+- [Compliance](https://www.ximilar.com/how-we-handle-data/)
+- [Terms of service](https://www.ximilar.com/terms-of-use-privacy/)
+- [Privacy policy](https://www.ximilar.com/terms-of-use-privacy/)
+- [GitHub](https://github.com/ximilar-com)
+- [Status](https://status.ximilar.com/)
+
+## API Evangelist rating
+
+**Kin Score 57.9** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 45.3 |
+| Contract governance | 18.2 |
+| Operational transparency | 57.9 |
+| Developer ergonomics | 61.9 |
+| Access clarity | 77.6 |
+
+**Agent readiness 33.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 27.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ximilar/](https://apis.io/providers/ximilar/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Ximilar: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ximilar/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
