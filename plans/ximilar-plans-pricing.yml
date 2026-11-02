@@ -1,0 +1,98 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://www.ximilar.com/pricing/
+sources:
+- https://www.ximilar.com/pricing/
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T141238
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+delivery:
+  delivery: managed+licensed
+  method: page
+  read: '2026-10-28'
+  evidence: Do you need custom solutions, advanced features, on-premise or edge device deployment? We
+    prepare custom plans for small businesses as well as enterprises.
+  managed_tier: Business 100K
+published: true
+note: Pricing page lists Free, Business and Professional tiers in EUR and USD, with credits-per-API-call
+  table; price figures appear concatenated in the extracted table text, so per-tier amounts are given
+  as verbatim groups. Custom/on-premise plans via Contact us.
+plan_count: 4
+currency: EUR
+plans:
+- name: Free
+  price_text: € 0
+  price: 0
+  currency: EUR
+  period: month
+  unit: plan
+  included_quota: 1,000 API credits monthly
+  overage: + credit packs
+- name: Business (100K / 300K / 500K)
+  price_text: € 59 175 285
+  currency: EUR
+  period: month
+  unit: plan
+  included_quota: 100,000 / 300,000 / 500,000 API credits monthly
+  overage: + credit packs
+- name: Professional (1M–40M)
+  price_text: € 499 930 1,299 1,635 1,945 2,229 2,485 3,125 5,359 7,619 9,559
+  currency: EUR
+  period: month
+  unit: plan
+  included_quota: 1,000,000 to 40,000,000 API credits monthly
+  overage: + credit packs
+- name: API Credit Packs
+  price_text: € 10 28 89 162 232 355 605 1,040 1,440 1,820 2,180
+  currency: EUR
+  period: one-time
+  unit: credit pack (10,000 to 5,000,000 credits)
+  included_quota: Do not expire; used after monthly supply runs out
+rate_limit_statements:
+- The unused credits from the monthly supply expire by the end of the monthly period.
+- the number of image collections, images, tasks, flows, or types of detected objects may be limited according
+  to your plan
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - metered
+  units:
+  - credit
+  plans:
+  - name: Free
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Business (100K / 300K / 500K)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Professional (1M–40M)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: API Credit Packs
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - one-time
