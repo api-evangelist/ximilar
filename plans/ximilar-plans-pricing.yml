@@ -57,7 +57,7 @@ rate_limit_statements:
 - the number of image collections, images, tasks, flows, or types of detected objects may be limited according
   to your plan
 x-canonical:
-  generated: '2026-11-02'
+  generated: '2026-11-06'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - metered
